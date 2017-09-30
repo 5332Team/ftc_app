@@ -19,8 +19,6 @@ public class Teleop extends OpMode {
     private DcMotor LaunchR;
     private DcMotor load;
     private Servo block;
-    private DcMotor Zip;
-
     @Override
     public void init() {
         //dcMotors setting
@@ -31,12 +29,11 @@ public class Teleop extends OpMode {
         LaunchL = hardwareMap.dcMotor.get("LaunchL");
         LaunchR = hardwareMap.dcMotor.get("LaunchR");
         load = hardwareMap.dcMotor.get("load");
-        block = hardwareMap.servo.get("bolck");
-        Zip = hardwareMap.dcMotor.get("Zip");
+        block = hardwareMap.servo.get("block");
 
 
         //If wrong change to REVERSE
-        Zip.setDirection(DcMotorSimple.Direction.FORWARD);
+
         FrontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         BackLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         FrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -51,7 +48,7 @@ public class Teleop extends OpMode {
         LaunchR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         LaunchL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         load.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        Zip.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -59,7 +56,7 @@ public class Teleop extends OpMode {
         LaunchL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LaunchR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         load.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Zip.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         telemetry.addData("Init", "Init Completed");
     }
     @Override
@@ -102,12 +99,6 @@ public class Teleop extends OpMode {
         }
         if (gamepad1.b) {
             block.setPosition(0.5);
-        }
-        if(gamepad1.x) {
-            Zip.setPower(1);
-        }
-        if(gamepad1.y) {
-            Zip.setPower(0);
         }
 
         telemetry.addData("Loop", "Running" );
