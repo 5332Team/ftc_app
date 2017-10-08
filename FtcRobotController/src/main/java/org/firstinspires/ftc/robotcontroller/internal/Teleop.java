@@ -15,10 +15,9 @@ public class Teleop extends OpMode {
     private DcMotor FrontRight;
     private DcMotor BackLeft;
     private DcMotor BackRight;
-    private DcMotor Knocker;
+    //private DcMotor Knocker;
     private DcMotor Raise;
     private DcMotor Pull;
-    private Servo Release;
     private Servo Rclose;
     private Servo Lclose;
     private Servo Relic;
@@ -31,8 +30,7 @@ public class Teleop extends OpMode {
         BackRight = hardwareMap.dcMotor.get("BackRight");
         Raise = hardwareMap.dcMotor.get("Raise");
         Pull = hardwareMap.dcMotor.get("Pull");
-        Knocker = hardwareMap.dcMotor.get("Knock");
-        Release = hardwareMap.servo.get("Release");
+        //Knocker = hardwareMap.dcMotor.get("Knock");
         Rclose = hardwareMap.servo.get("Rclose");
         Lclose = hardwareMap.servo.get("Lclose");
         Relic = hardwareMap.servo.get("Relic");
@@ -46,7 +44,7 @@ public class Teleop extends OpMode {
         BackRight.setDirection(DcMotorSimple.Direction.REVERSE);
         Raise.setDirection(DcMotorSimple.Direction.FORWARD);
         Pull.setDirection(DcMotorSimple.Direction.REVERSE);
-        Knocker.setDirection(DcMotorSimple.Direction.FORWARD);
+        //Knocker.setDirection(DcMotorSimple.Direction.FORWARD);
 
         FrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         BackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -54,7 +52,7 @@ public class Teleop extends OpMode {
         BackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         Raise.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         Pull.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        Knocker.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //Knocker.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -62,7 +60,7 @@ public class Teleop extends OpMode {
         BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Raise.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Pull.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Knocker.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //Knocker.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         telemetry.addData("Init", "Init Completed");
     }
@@ -87,9 +85,6 @@ public class Teleop extends OpMode {
             BackLeft.setPower(gamepad1.left_stick_x + gamepad1.left_stick_y);
             FrontRight.setPower(gamepad1.left_stick_x + gamepad1.left_stick_y);
         }
-      if(gamepad1.left_bumper) {
-          Release.setPosition(0.5);
-      }
       if (gamepad1.right_bumper)
           Pull.setPower(1);
       if(gamepad1.dpad_up){
