@@ -17,31 +17,35 @@ public class LAutonomusRed extends LinearOpMode {
     DcMotor Raise;
     DcMotor Pull;
     DcMotor Knocker;
-    ColorSensor Color;
+
     public void forward(double power) {
         frontLeft.setPower(power);
         frontRight.setPower(power);
         backLeft.setPower(power);
         backRight.setPower(power);
     }
+
     public void right(double power) {
+        frontLeft.setPower(power);
+        frontRight.setPower(power);
+        backLeft.setPower(power);
+        backRight.setPower(power);
+    }
+
+    public void left(double power) {
+        frontLeft.setPower(power);
+        frontRight.setPower(power);
+        backLeft.setPower(power);
+        backRight.setPower(-power);
+    }
+
+    public void backwards(double power) {
         frontLeft.setPower(power);
         frontRight.setPower(-power);
         backLeft.setPower(-power);
         backRight.setPower(power);
     }
-    public void left(double power) {
-        frontLeft.setPower(-power);
-        frontRight.setPower(power);
-        backLeft.setPower(power);
-        backRight.setPower(-power);
-    }
-    public void backwards(double power) {
-        frontLeft.setPower(-power);
-        frontRight.setPower(-power);
-        backLeft.setPower(-power);
-        backRight.setPower(-power);
-    }
+
 
     @Override
     public void runOpMode() {
@@ -53,8 +57,6 @@ public class LAutonomusRed extends LinearOpMode {
         Pull = hardwareMap.dcMotor.get("Pull");
         Knocker = hardwareMap.dcMotor.get("Knock");
 
-        Color = hardwareMap.colorSensor.get("Color");
-        Color.setI2cAddress(I2cAddr.create7bit(0x1f));
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -76,7 +78,6 @@ public class LAutonomusRed extends LinearOpMode {
         Raise.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Pull.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Knocker.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Color.enableLed(false);
         while (!isStarted()) ;
         forward(1);
         try {
