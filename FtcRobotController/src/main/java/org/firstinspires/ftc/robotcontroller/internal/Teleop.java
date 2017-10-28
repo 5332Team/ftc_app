@@ -14,17 +14,17 @@ public class Teleop extends OpMode {
     private DcMotor FrontRight;
     private DcMotor BackLeft;
     private DcMotor BackRight;
-    private DcMotor RelicR;
+   // private DcMotor RelicR;
     private DcMotor Raise;
-    private DcMotor RelicP;
+   // private DcMotor RelicP;
     //private DcMotor Knocker;
 
     //servo Var
 
     private Servo Rclose;
     private Servo Lclose;
-    private Servo RelicClaw;
-    private Servo RelicGrab;
+   // private Servo RelicClaw;
+   // private Servo RelicGrab;
     //End of Classifying
     @Override
     public void init() {
@@ -34,12 +34,12 @@ public class Teleop extends OpMode {
         BackLeft = hardwareMap.dcMotor.get("BackLeft");
         BackRight = hardwareMap.dcMotor.get("BackRight");
         Raise = hardwareMap.dcMotor.get("Raise");
-        RelicP = hardwareMap.dcMotor.get("RelicPull");
-        RelicR = hardwareMap.dcMotor.get("RelicExtend");
+        //RelicP = hardwareMap.dcMotor.get("RelicPull");
+        //RelicR = hardwareMap.dcMotor.get("RelicExtend");
         Rclose = hardwareMap.servo.get("Rclose");
         Lclose = hardwareMap.servo.get("Lclose");
-        RelicClaw = hardwareMap.servo.get("Rclaw");
-        RelicGrab = hardwareMap.servo.get("Rgrab");
+       // RelicClaw = hardwareMap.servo.get("Rclaw");
+        //RelicGrab = hardwareMap.servo.get("Rgrab");
 
 
 
@@ -50,8 +50,8 @@ public class Teleop extends OpMode {
         FrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         BackRight.setDirection(DcMotorSimple.Direction.REVERSE);
         Raise.setDirection(DcMotorSimple.Direction.FORWARD);
-        RelicP.setDirection(DcMotorSimple.Direction.REVERSE);
-        RelicR.setDirection(DcMotorSimple.Direction.FORWARD);
+       // RelicP.setDirection(DcMotorSimple.Direction.REVERSE);
+       // RelicR.setDirection(DcMotorSimple.Direction.FORWARD);
         //Knocker.setDirection(DcMotorSimple.Direction.FORWARD);
 
         FrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -59,19 +59,19 @@ public class Teleop extends OpMode {
         FrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         BackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         Raise.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        RelicP.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        RelicR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+       // RelicP.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //RelicR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Raise.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        RelicR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        RelicP.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+     //   RelicR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //RelicP.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        RelicClaw.setPosition(0);
-        RelicGrab.setPosition(1);
+       // RelicClaw.setPosition(0);
+       // RelicGrab.setPosition(1);
         Lclose.setPosition(0);
         Rclose.setPosition(0);
         telemetry.addData("Init", "Init Completed");
@@ -97,24 +97,16 @@ public class Teleop extends OpMode {
             BackLeft.setPower(gamepad1.left_stick_x + gamepad1.left_stick_y);
             FrontRight.setPower(gamepad1.left_stick_x + gamepad1.left_stick_y);
         }
-      if(gamepad1.dpad_up){
-          Raise.setPower(1);
-          //attach facing same orientation as wheels
-      }
-      if (gamepad1.dpad_down) {
-          Raise.setPower(-1);
-      }
       if (gamepad1.a) {
-          Lclose.setPosition(0.6);
-          Rclose.setPosition(0.6);
+          Lclose.setPosition(1);
+          Rclose.setPosition(0);
       }
       if (gamepad1.b) {
           Lclose.setPosition(0);
           Rclose.setPosition(0);
       }
       if(gamepad1.right_stick_y != 0); {
-            RelicR.setPower(gamepad1.right_stick_y);
-            RelicP.setPower(-gamepad1.right_stick_y);
+          Raise.setPower(gamepad1.right_stick_y);
         }
         telemetry.addData("Loop", "Running" );
     }

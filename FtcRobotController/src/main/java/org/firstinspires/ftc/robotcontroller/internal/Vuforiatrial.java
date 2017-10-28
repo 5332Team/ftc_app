@@ -139,9 +139,37 @@ public class Vuforiatrial extends LinearOpMode {
 
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
             if (vuMark == RelicRecoveryVuMark.CENTER) {
-
+            left(1);
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException e) {
+                    telemetry.addData("Error", "Failed to Sleep");
+                }
             }
-
+            if (vuMark == RelicRecoveryVuMark.CENTER) {
+                left(1);
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException e) {
+                    telemetry.addData("Error", "Failed to Sleep");
+                }
+            }
+            if (vuMark == RelicRecoveryVuMark.LEFT) {
+                left(1);
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException e) {
+                    telemetry.addData("Error", "Failed to Sleep");
+                }
+            }
+            if (vuMark == RelicRecoveryVuMark.RIGHT) {
+                left(1);
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException e) {
+                    telemetry.addData("Error", "Failed to Sleep");
+                }
+            }
             if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
                 telemetry.addData("VuMark", "%s visible", vuMark);
                 OpenGLMatrix pose = ((VuforiaTrackableDefaultListener)relicTemplate.getListener()).getPose();
@@ -149,7 +177,7 @@ public class Vuforiatrial extends LinearOpMode {
                 if (pose != null) {
                     VectorF trans = pose.getTranslation();
                     Orientation rot = Orientation.getOrientation(pose, AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
-                    
+
                     double tX = trans.get(0);
                     double tY = trans.get(1);
                     double tZ = trans.get(2);

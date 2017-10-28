@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.I2cAddr;
-@Autonomous(name="autoBlue")
+@Autonomous(name="RautoRed")
 public class RAutonomusRed extends LinearOpMode {
     DcMotor frontLeft;
     DcMotor frontRight;
