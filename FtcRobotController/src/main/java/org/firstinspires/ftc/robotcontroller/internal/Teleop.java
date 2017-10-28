@@ -103,7 +103,7 @@ public class Teleop extends OpMode {
       }
       if (gamepad1.b) {
           Lclose.setPosition(0);
-          Rclose.setPosition(0);
+          Rclose.setPosition(1);
       }
       if(gamepad1.right_stick_y != 0); {
           Raise.setPower(gamepad1.right_stick_y);
