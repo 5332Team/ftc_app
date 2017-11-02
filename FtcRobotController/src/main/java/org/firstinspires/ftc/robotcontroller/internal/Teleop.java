@@ -18,7 +18,7 @@ public class Teleop extends LinearOpMode
     private DcMotor Raise;
     private Servo Rclose;
     private Servo Lclose;
-
+    private Servo knocker;
 
     public void open(){
         Lclose.setPosition(.8);
