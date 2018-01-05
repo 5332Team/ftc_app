@@ -26,13 +26,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.firstinspires.ftc.robotcontroller.internal;
+package org.firstinspires.ftc.robotcontroller.internal.Robot2k17.Robot2k18;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
@@ -50,82 +48,58 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 @Autonomous(name="Concept: VuMark Id", group ="Concept")
 //@Disabled
-public class Vuforiatrial extends LinearOpMode {
+public class test2 extends LinearOpMode {
 
     public static final String TAG = "Vuforia VuMark Sample";
+
     OpenGLMatrix lastLocation = null;
+
+    /**
+     * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
+     * localization engine.
+     */
     VuforiaLocalizer vuforia;
-    DcMotor frontLeft;
-    DcMotor frontRight;
-    DcMotor backLeft;
-    DcMotor backRight;
-    DcMotor Raise;
-    DcMotor Pull;
-    DcMotor Knocker;
-    public void forward(double power) {
-        frontLeft.setPower(power);
-        frontRight.setPower(power);
-        backLeft.setPower(power);
-        backRight.setPower(power);
-    }
-    public void right(double power) {
-        frontLeft.setPower(power);
-        frontRight.setPower(-power);
-        backLeft.setPower(-power);
-        backRight.setPower(power);
-    }
-    public void left(double power) {
-        frontLeft.setPower(-power);
-        frontRight.setPower(power);
-        backLeft.setPower(power);
-        backRight.setPower(-power);
-    }
-    public void backwards(double power) {
-        frontLeft.setPower(-power);
-        frontRight.setPower(-power);
-        backLeft.setPower(-power);
-        backRight.setPower(-power);
-    }
+
     @Override public void runOpMode() {
-        frontLeft = hardwareMap.dcMotor.get("FrontLeft");
-        frontRight = hardwareMap.dcMotor.get("FrontRight");
-        backLeft = hardwareMap.dcMotor.get("BackLeft");
-        backRight = hardwareMap.dcMotor.get("BackRight");
-        Raise = hardwareMap.dcMotor.get("Raise");
-        Pull = hardwareMap.dcMotor.get("Pull");
-        Knocker = hardwareMap.dcMotor.get("Knock");
 
-        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
-        backRight.setDirection(DcMotorSimple.Direction.FORWARD);
-        Raise.setDirection(DcMotorSimple.Direction.FORWARD);
-        Pull.setDirection(DcMotorSimple.Direction.REVERSE);
-        Knocker.setDirection(DcMotorSimple.Direction.FORWARD);
-        frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        Raise.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        Pull.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        Knocker.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Raise.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Pull.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Knocker.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-
+        /*
+         * To start up Vuforia, tell it the view that we wish to use for camera monitor (on the RC phone);
+         * If no camera monitor is desired, use the parameterless constructor instead (commented out below).
+         */
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
+        // OR...  Do Not Activate the Camera Monitor View, to save power
+        // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
-
+        /*
+         * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
+         * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
+         * A Vuforia 'Development' license key, can be obtained free of charge from the Vuforia developer
+         * web site at https://developer.vuforia.com/license-manager.
+         *
+         * Vuforia license keys are always 380 characters long, and look as if they contain mostly
+         * random data. As an example, here is a example of a fragment of a valid key:
+         *      ... yIgIzTqZ4mWjk9wd3cZO9T1axEqzuhxoGlfOOI2dRzKS4T0hQ8kT ...
+         * Once you've obtained a license key, copy the string from the Vuforia web site
+         * and paste it in to your code onthe next line, between the double quotes.
+         */
         parameters.vuforiaLicenseKey = "AR+pks7/////AAAAGYrCvY5jD0HbhzsrDANCXhwWSZPviFIBIB16sio1ihNGIjkkFGorQXsrI0lyaOZRNOf5cU+szNRm1/hetylIMjXI6y7HHYverkNux3f0F5VVQ8QCdMDs3D3rTBW9xSQ5z/NPXsvc9VJAp8PHvYZ2P+8r/385sb69m/vWLDh/ilt3cqco0WJL8nVYEMdQfRBGjpWn3+GdD1twKYFVQgXs1E08Ortn0MgDbhBAR1TMLJbUcVVaQ8ftxymT/eQHCZpkOmnKcbawuCUJ4ljwhtIlUCOpaSyKq1LjK0j31rs3b1oesO5ssBYBJzvTrZfOTrPvxwOW7SM/kLRR56AsTo0tSLdo8Kjl2aPP+lJrUDpPL0Ae";
+
+        /*
+         * We also indicate which camera on the RC that we wish to use.
+         * Here we chose the back (HiRes) camera (for greater range), but
+         * for a competition robot, the front camera might be more convenient.
+         */
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
         this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+
+        /**
+         * Load the data set containing the VuMarks for Relic Recovery. There's only one trackable
+         * in this data set: all three of the VuMarks in the game were created from this one template,
+         * but differ in their instance id information.
+         * @see VuMarkInstanceId
+         */
         VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
         VuforiaTrackable relicTemplate = relicTrackables.get(0);
         relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
@@ -133,51 +107,40 @@ public class Vuforiatrial extends LinearOpMode {
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
         waitForStart();
+
         relicTrackables.activate();
 
         while (opModeIsActive()) {
 
+            /**
+             * See if any of the instances of {@link relicTemplate} are currently visible.
+             * {@link RelicRecoveryVuMark} is an enum which can have the following values:
+             * UNKNOWN, LEFT, CENTER, and RIGHT. When a VuMark is visible, something other than
+             * UNKNOWN will be returned by {@link RelicRecoveryVuMark#from(VuforiaTrackable)}.
+             */
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-            if (vuMark == RelicRecoveryVuMark.CENTER) {
-            left(1);
-                try {
-                    Thread.sleep(150);
-                } catch (InterruptedException e) {
-                    telemetry.addData("Error", "Failed to Sleep");
-                }
-            }
-            if (vuMark == RelicRecoveryVuMark.CENTER) {
-                left(1);
-                try {
-                    Thread.sleep(150);
-                } catch (InterruptedException e) {
-                    telemetry.addData("Error", "Failed to Sleep");
-                }
-            }
-            if (vuMark == RelicRecoveryVuMark.LEFT) {
-                left(1);
-                try {
-                    Thread.sleep(150);
-                } catch (InterruptedException e) {
-                    telemetry.addData("Error", "Failed to Sleep");
-                }
-            }
-            if (vuMark == RelicRecoveryVuMark.RIGHT) {
-                left(1);
-                try {
-                    Thread.sleep(150);
-                } catch (InterruptedException e) {
-                    telemetry.addData("Error", "Failed to Sleep");
-                }
-            }
+
+
             if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
+
+                /* Found an instance of the template. In the actual game, you will probably
+                 * loop until this condition occurs, then move on to act accordingly depending
+                 * on which VuMark was visible. */
                 telemetry.addData("VuMark", "%s visible", vuMark);
+
+                /* For fun, we also exhibit the navigational pose. In the Relic Recovery game,
+                 * it is perhaps unlikely that you will actually need to act on this pose information, but
+                 * we illustrate it nevertheless, for completeness. */
                 OpenGLMatrix pose = ((VuforiaTrackableDefaultListener)relicTemplate.getListener()).getPose();
                 telemetry.addData("Pose", format(pose));
+
+                /* We further illustrate how to decompose the pose into useful rotational and
+                 * translational components */
                 if (pose != null) {
                     VectorF trans = pose.getTranslation();
                     Orientation rot = Orientation.getOrientation(pose, AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
 
+                    // Extract the X, Y, and Z components of the offset of the target relative to the robot
                     double tX = trans.get(0);
                     double tY = trans.get(1);
                     double tZ = trans.get(2);
